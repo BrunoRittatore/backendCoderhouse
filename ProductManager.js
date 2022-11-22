@@ -3,13 +3,14 @@ class ProductManager {
 
     constructor() {
         this.baseDatos = [];
-
     }
     getProducts() {
+        console.log('Getting Products ' ,this.baseDatos);
         return this.baseDatos;
     }
 
-    getId = () => {const count = this.baseDatos.length
+    getId = () => {
+        const count = this.baseDatos.length
         if (count == 0) {
             return 1;
         }
@@ -18,18 +19,12 @@ class ProductManager {
         }
 
     }
-    checkCode = (code) => {
-        if((this.baseDatos.find(product => product.code == code)) == undefined) {
-            console.log('Error in adding product: Repeated Code. ');
-            return false;
-        }
-        return true;
-    }
+    
 
 
     addProduct = (title, description, code, price, stock, thumbnails) =>{
         const id = this.getId();
-       const  checking = checkCode(code);
+        const  checking = this.checkCode(code);
         if (checking){
             const product = {
                 id,
@@ -44,6 +39,14 @@ class ProductManager {
         }
         
     }
+    checkCode = (code) => {
+        if((this.baseDatos.find(product => product.code == code)) == undefined) {
+            return true;
+        }
+        console.log('Error in adding product: Repeated Code. ');
+        return false;
+       
+    }
 
 
     getProductById = (id) => {
@@ -57,5 +60,7 @@ Products.getProducts();
 Products.addProduct('product test', 'Testing Product', '200', 500, 10, 'empty');
 Products.getProducts();
 Products.addProduct('product test', 'Testing Product', '200', 500, 10, 'empty');
-products.getProductById(2);
-products.getProductById(1);
+Products.getProductById(2);
+Products.getProductById(1);
+
+console.log(Products.baseDatos);
