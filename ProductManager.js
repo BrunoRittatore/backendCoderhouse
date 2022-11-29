@@ -58,8 +58,10 @@ class ProductManager {
 const Products = new ProductManager();
 Products.getProducts();
 Products.addProduct('product test', 'Testing Product', '200', 500, 10, 'empty');
+Products.addProduct('product test', 'Testing Product', '220', 500, 10, 'empty');
+
 Products.getProducts();
-Products.addProduct('product test', 'Testing Product', '200', 500, 10, 'empty');
+Products.addProduct('product test', 'Testing Product', '220', 500, 10, 'empty');
 Products.getProductById(2);
 Products.getProductById(1);
 
