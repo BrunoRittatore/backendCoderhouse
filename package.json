@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/BrunoRittatore/backendCoderhouse/issues"
   },
-  "homepage": "https://github.com/BrunoRittatore/backendCoderhouse#readme"
+  "homepage": "https://github.com/BrunoRittatore/backendCoderhouse#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
