@@ -19,9 +19,10 @@ class ProductManager {
     }
 
     getId = async() => {
-        const count =  await JSON.parse(fs.promises.readFile(this.path,'utf-8'));
-        const index = count.length;
 
+        const a = await fs.promises.readFile(this.path,'utf-8');
+        const count = JSON.parse(a)
+        const index = count.length;
         if (index == undefined) {
             return 1;
         }
