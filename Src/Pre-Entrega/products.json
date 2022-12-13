@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "title": "Carpa para 2 personas",
+        "description": "Carpa de 2 tiempos para 2 personas de capacidad calidad media",
+        "price": 500,
+        "thumbnail": "https://www.canigo.com.ar/wp-content/uploads/6081_1-324x324.jpg",
+        "stock": 50,
+        "code": 342
+      },
+      {
+        "id": 2,
+        "title": "Carpa para 4 personas ",
+        "description": "Carpa de 3 tiempos montagne para 4 personas con baulera",
+        "price": 700,
+        "thumbnail": "https://d368r8jqz0fwvm.cloudfront.net/34904-product_list_sm/carpa-ghara-4p.jpg",
+        "stock": 20,
+        "code": 900
+      }
+]

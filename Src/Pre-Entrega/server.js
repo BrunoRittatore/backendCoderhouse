@@ -1,9 +1,9 @@
-const ProductManager = require("../Desafio2/ProductManager");
+const ProductManager = require("./ProductManager");
 const express = require('express');
 const app = express();
 const products = []
 const PORT = 8080;
-const productManager = new ProductManager("productos.json");
+const productManager = new ProductManager("products.json");
 app.use(express.json());
 app.use(express.urlencoded({ extended:true}));
 
@@ -123,10 +123,48 @@ app.post('/api/products', async (req, res) =>{
 })
 
 
-app.get('/api/carts', async (req, res) => {
+app.get('/api/carts/:cid', async (req, res) => {
     
-
+    try{
+        const { id: paramId } = req.params;
+        const id = Number(id);
+        if (id < 0){
+            return res.send({success:false, message: "Invalid id"});
+        }
+    
+        const  productsById = await ProductManager.getProductById(id);
+    
+        if(!productsById ) { return res.send({success:false, message: "Product not found"}); }
+        res.send({success:true, product: productsById});
+    
+       }catch(e){
+        console.log(e)
+        return res.send({success:false, message: e});
+       }
 })
+
+
+/* CREATION */
+app.post('/api/carts/:cid/product/:pid', async (req, res) =>{
+
+    try{ 
+     
+     const {title, description, code, price,status, stock,category, thumbnails} = req.body
+         if(!title || !description  || !code || !price || !status || !stock || !category || !thumbnails){
+         return res.send({success: false,error:'valores incompletos'});
+         }
+     const savedProduct = await ProductManager.addProduct({title, description, code, price,status, stock,category, thumbnails});
+ 
+ 
+     res.send({status:'success',message:'Product created'})
+     return savedProduct;
+     }
+     catch(e){
+         console.error(e);
+         res.send({success: false,error:'Ocurrio un error en la carga del producto'});
+ 
+     }
+ })
 
 
 
