@@ -11,6 +11,9 @@ app.get('/', (req, res) => {
     res.send('Hi Express Server!')
 });
 
+
+/*  SELECT   */
+
 app.get('/api/products', async (req, res) => {
     try{
         const {limit,skip} = req.query;
@@ -28,6 +31,8 @@ app.get('/api/products', async (req, res) => {
     }
     
 });
+
+/*  SELECT   */
 
 app.get('/api/products/:id', async (req, res) => {
    try{
@@ -50,27 +55,71 @@ app.get('/api/products/:id', async (req, res) => {
 })
 
 
-
-// esto es para enviar data JSON con un post y tiene un metodo validador que en caso de no tener ningun user sale error
-app.post('/api/products', async (req, res) =>{
+/*  UPDATE   */
+app.put('/api/products:id', async (req, res) =>{
 
    try{ 
-    
-    const {title, description, code, price,status, stock,category, thumbnails} = req.body
-        if(!title || !description  || !code || !price || !status || !stock || !category || !thumbnails){
-        return res.send({success: false,error:'valores incomplete'});
+        const { id: paramId} = req.params;
+        const id = Number(paramId);
+        if(Number.isNaN(id) || id < 0 ){
+            return res.send({
+                success: false,error: 'El id debe ser valido'
+            });
         }
-    const savedProduct = await ProductManager.addProduct({title, description, code, price,status, stock,category, thumbnails});
+        
+     const {title, description, code, price,status, stock,category, thumbnails} = req.body
+     await ProductManager.updateProduct(id,{title, description, code, price,status, stock,category, thumbnails});
 
-
-    res.send({status:'success',message:'Product created'})
-    return savedProduct;
     }
     catch(e){
         console.error(e);
-        res.send({success: false,error:'Ocurrio un error en la carga del producto'});
+        res.send({success: false,error:'Ocurrio un error en update del producto'});
 
     }
+})
+
+
+/* CREATION */
+app.post('/api/products', async (req, res) =>{
+
+    try{ 
+     
+     const {title, description, code, price,status, stock,category, thumbnails} = req.body
+         if(!title || !description  || !code || !price || !status || !stock || !category || !thumbnails){
+         return res.send({success: false,error:'valores incompletos'});
+         }
+     const savedProduct = await ProductManager.addProduct({title, description, code, price,status, stock,category, thumbnails});
+ 
+ 
+     res.send({status:'success',message:'Product created'})
+     return savedProduct;
+     }
+     catch(e){
+         console.error(e);
+         res.send({success: false,error:'Ocurrio un error en la carga del producto'});
+ 
+     }
+ })
+ 
+ app.delete('/api/products:id',async (req, res) => {
+    try{ 
+        const { id: paramId} = req.params;
+        const id = Number(paramId);
+        if(Number.isNaN(id) || id < 0 ){
+            return res.send({
+                success: false,error: 'El id debe ser valido'
+            });
+        }
+        
+     const deletedProduct =  await ProductManager.deleteProduct(id);
+        res.send({succes:true , deleted :deletedProduct});
+    }
+    catch(e){
+        console.error(e);
+        res.send({success: false,error:'Ocurrio un error en el delete del producto'});
+
+    }
+
 })
 
 
