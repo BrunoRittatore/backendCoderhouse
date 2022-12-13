@@ -33,7 +33,7 @@ class ProductManager {
     
 
 
-    addProduct = async(title, description, code, price, stock, thumbnails) =>{
+    addProduct = async(title, description, code, price,status, stock,category, thumbnails) =>{
         const id = await this.getId();
         const  checking = this.checkCode(code);
         if (checking){
@@ -44,6 +44,8 @@ class ProductManager {
                 code: code,
                 price: price,
                 stock: stock,
+                status: status,
+                category: category,
                 thumbnails: thumbnails
             }
             await fs.promises.writeFile(this.path, JSON.stringify([ product ]));
@@ -138,3 +140,6 @@ test1.getProducts()
         const result = JSON.parse(products);
         console.log(result);
     });
+
+
+module.exports = ProductManager;
