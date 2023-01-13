@@ -143,3 +143,4 @@ test1.getProducts()
 
 
 module.exports = ProductManager;
+export default ProductManager;
