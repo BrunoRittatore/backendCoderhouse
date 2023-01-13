@@ -4,7 +4,7 @@ const router = Router()
 const pets = []
 router.get('/',(req,res) => {
     res.json({pets});
-    res.send('Router PerformanceEventTiming');
+    
 })
 
 router.get('/info',(req,res) => {   res.send('Info PerformanceEventTiming' )   })
